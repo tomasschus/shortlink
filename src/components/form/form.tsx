@@ -9,7 +9,7 @@ interface formProps {
 
 const Form = ({ onSubmit }: formProps) => {
   const [url, setUrl] = React.useState<string>("");
-
+  
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (url) {
@@ -32,7 +32,7 @@ const Form = ({ onSubmit }: formProps) => {
     <form onSubmit={handleSubmit}>
       <FormTextField onChange={setUrl} value={url} />
       <div style={styles.button}>
-        <FormButton disabled={!url} />
+        <FormButton disabled={!url || !url.includes(".")} />
       </div>
     </form>
   );

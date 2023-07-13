@@ -4,5 +4,5 @@ export const getOriginalUrl = async (hash: string) => {
         body: JSON.stringify({shortUrl: hash})
     })
     const data = await res.json();
-    return data.data.originalUrl;
+    return data.data;
 }

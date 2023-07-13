@@ -13,10 +13,17 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const results = await LinkModel.findOne({ shortUrl: body.shortUrl });
-    return NextResponse.json({ message: "OK", data: results, success: false });
+    const result = await LinkModel.findOne({ shortUrl: body.shortUrl });
+    let formatedResult;
+    if (result) {
+      formatedResult = result.originalUrl;
+      if(!result.originalUrl.includes("http")){
+        formatedResult = "https://" + formatedResult;
+      }
+    }
+    return NextResponse.json({ message: "OK", data: formatedResult, success: false });
   } catch (error: any) {
-    console.log(error)
+    console.error(error)
     return NextResponse.json({ message: error.message, data: null, success: false });
   }
 }

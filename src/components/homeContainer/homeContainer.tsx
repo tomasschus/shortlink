@@ -19,6 +19,8 @@ const HomeContainer = () => {
         mutation.mutate(url);
     }
 
+    const finalUrl = mutation.isSuccess ? `${window.location.href}${mutation.data.data.shortUrl}` : "";
+
     return (
         <Container maxWidth="sm">
             <Box my={4}>
@@ -33,8 +35,9 @@ const HomeContainer = () => {
                 )}
                 {mutation.isSuccess &&
                     <div>
-                        <p>{window.location.href}{mutation.data.data.shortUrl}</p>
+                        <p className='text-center'>{finalUrl}</p>
                         <button onClick={() => mutation.reset()}>Volver</button>
+                        <button onClick={() => window.location.replace(finalUrl)}>Ir</button>
                     </div>
                 }
             </Box>
