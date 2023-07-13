@@ -2,15 +2,17 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useMutation } from 'react-query';
 import Form from '../form/form';
+import { linkResponse } from '@/src/types/linkResponse.interface';
 
-const HomeContainer = () => {
+const HomeContainer = () => {  
     const mutation = useMutation("generate-url", async (url: string) => {
         const res = await fetch('/api/generate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ originalUrl: url }),
         })
-        return await res.json();
+        const newLinkData: linkResponse = await res.json();
+        return newLinkData;
     });
 
     async function onSubmit(url: string) {
@@ -29,7 +31,12 @@ const HomeContainer = () => {
                 {mutation.isError && (
                     <div>An error occurred: {(mutation.error as Error).message}</div>
                 )}
-                {mutation.isSuccess && <div>{mutation.data}</div>}
+                {mutation.isSuccess &&
+                    <div>
+                        <p>{window.location.href}{mutation.data.data.shortUrl}</p>
+                        <button onClick={() => mutation.reset()}>Volver</button>
+                    </div>
+                }
             </Box>
         </Container>
     )

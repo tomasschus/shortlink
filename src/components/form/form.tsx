@@ -12,12 +12,13 @@ const Form = ({ onSubmit }: formProps) => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    onSubmit(url);
+    if (url) {
+      onSubmit(url);
+    }
   };
 
-  const styles: { 
-    [key: string]: React.CSSProperties 
+  const styles: {
+    [key: string]: React.CSSProperties
   } = {
     button: {
       display: 'flex',

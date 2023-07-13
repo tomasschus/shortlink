@@ -52,7 +52,7 @@ const FormTextField = ({ value, onChange }: FormTextFieldProps) => {
           inputRef.current.focus();
           inputRef.current.placeholder = "Escribe la URL aquí"
         }
-    }, []);
+    }, [value]);
 
     return (
         <CustomTextField
@@ -60,9 +60,9 @@ const FormTextField = ({ value, onChange }: FormTextFieldProps) => {
             className="url-input"
             label="URL"
             value={value}
-            required
             onChange={handleChange}
             fullWidth
+            required
             InputLabelProps={{
                 style: { color: 'white' }
             }}

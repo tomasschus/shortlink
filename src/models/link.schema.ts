@@ -1,15 +1,17 @@
-// models/Note.ts
 import mongoose, { Document, Schema } from 'mongoose';
-import { Link } from '../types/link.interface';
 
-export interface iLink extends Link, Document {}
+export interface Link extends Document {
+  originalUrl: string;
+  shortUrl: string;
+  date: Date;
+}
 
-const LinkSchema: Schema = new Schema(
-  {
-    originalUrl: { type: String, required: true },
-    shortUrl: { type: String, required: true },
-    date: { type: Date, default: Date.now },
-  }
-);
+const linkSchema: Schema = new Schema({
+  originalUrl: { type: String, required: true },
+  shortUrl: { type: String, required: true },
+  date: { type: Date, default: Date.now },
+});
 
-export default mongoose.model<iLink>('iLink', LinkSchema);
+const LinkModel = mongoose.models.link || mongoose.model<Link>('link', linkSchema);
+
+export default LinkModel;
