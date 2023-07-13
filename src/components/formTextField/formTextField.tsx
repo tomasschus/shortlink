@@ -9,7 +9,7 @@ interface FormTextFieldProps {
 }
 
 const FormTextField = ({ value, onChange }: FormTextFieldProps) => {
-  
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         onChange(event.target.value);
     };
@@ -50,10 +50,11 @@ const FormTextField = ({ value, onChange }: FormTextFieldProps) => {
 
     useEffect(() => {
         if(inputRef.current){
-          inputRef.current.focus();
           inputRef.current.placeholder = "Escribe la URL aquí"
         }
-    }, [value]);
+    }, []);
+
+    useEffect(() => inputRef.current?.focus(), [value])
 
     return (
         <CustomTextField
